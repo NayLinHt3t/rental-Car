@@ -16,4 +16,13 @@ public class UserDAO {
         System.arraycopy(users, 0, result, 0, count);
         return result;
     }
+    public User getUserById(String id) {
+        for (User user : users) {
+            if (user != null && user.getId().toString().equals(id)) {
+                return user;
+            }
+        }
+        throw new RuntimeException("User with ID " + id + " not found.");
+    }
+    
 }

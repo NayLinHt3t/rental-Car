@@ -12,4 +12,7 @@ public class UserService {
     public User[] getAllUsers() {
         return userDAO.getAllUsers();
     }
+    public User getUserById(String id) {
+        return userDAO.getUserById(id);
+    }
 }

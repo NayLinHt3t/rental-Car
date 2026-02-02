@@ -6,7 +6,10 @@ import car.CarDAO;
 public class BookingService {
     private BookingDAO bookingDAO;
     private CarDAO carDAO;
-    
+    public BookingService(BookingDAO bookingDAO, CarDAO carDAO){
+        this.bookingDAO = bookingDAO;
+        this.carDAO =carDAO;
+    }
     public Booking createBooking(User user, Car car ) {
         Car [] avaliableCars = carDAO.getAvailableCars();
         if(avaliableCars.length == 0){

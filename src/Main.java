@@ -1,6 +1,9 @@
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+import booking.Booking;
+import booking.BookingDAO;
+import booking.BookingService;
 import user.User;
 import user.UserDAO;
 import user.UserService;
@@ -23,6 +26,8 @@ public class Main{
     UserService userService = new UserService(userDAO);
     CarDAO carDAO = new CarDAO();
     CarService carService = new CarService(carDAO);
+    BookingDAO bookingDAO = new BookingDAO();
+    BookingService bookingService = new BookingService(bookingDAO, carDAO);
 
     Scanner scanner = new Scanner(System.in);
     Boolean running = true;
@@ -37,8 +42,9 @@ public class Main{
                 case "2":
                     carServiceDisplay(carService, scanner);
                     break;
-                // 
-                
+                case "3":
+                    bookingServiceDisplay(bookingService,userService,carService, scanner);
+                    break;
                 case "4":
                     running = false;
                     break;
@@ -161,5 +167,63 @@ public class Main{
         for (Car car : cars) {
             System.out.println(car);
         }
+    }
+   
+    public static void bookingServiceDisplay(BookingService bookingService,UserService userService,CarService carService, Scanner scanner){
+        System.out.println("Select an option:");
+        System.out.println("1. Create Booking");
+        System.out.println("2. View Bookings");
+        System.out.println("3. Get Booking By ID");
+        System.out.println("4. Get Booking By User ID");
+        System.out.println("5. Back to Main Menu");
+       
+        String choice = scanner.nextLine();
+        switch(choice){
+            case "1":
+                createBooking(bookingService, userService, carService, scanner);
+                break;
+            case "2":
+                viewBookings(bookingService);
+                break;
+            case "3":
+                getBookingById(bookingService, scanner);
+                break;
+            case "4": 
+                getBookingByUserId(bookingService, scanner);
+                break;
+            case "5": 
+                return;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
+    }
+    public static void createBooking(BookingService bookingService,UserService userService,CarService carService, Scanner scanner){
+        System.out.println("Enter User ID:");
+        String userId = scanner.nextLine();
+        System.out.println("Enter Car Registration Number:");
+        String carRegNumber = scanner.nextLine();
+        User user = userService.getUserById(userId); // You would typically fetch the user from UserService
+        Car car = carService.getCarByRegNumber(carRegNumber); // You would typically fetch the car from CarService
+        Booking newBooking = bookingService.createBooking(user, car);
+        System.out.println("Booking created: " + newBooking);   
+
+    }
+    public static void viewBookings(BookingService bookingService){
+        Booking[] bookings = bookingService.getAllBookings();
+        for (Booking booking : bookings) {
+            System.out.println(booking);
+        }
+    }
+    public static void getBookingById(BookingService bookingService, Scanner scanner){
+        System.out.println("Enter Booking ID:");
+        String bookingId = scanner.nextLine();
+        Booking booking = bookingService.getBookingById(bookingId);
+        System.out.println("Booking found: " + booking);    
+    }
+    public static void getBookingByUserId(BookingService bookingService, Scanner scanner){
+        System.out.println("Enter User ID:");
+        String userId = scanner.nextLine();
+        Booking booking = bookingService.getBookingByUserId(userId);
+        System.out.println("Booking found: " + booking);    
     }
 }
