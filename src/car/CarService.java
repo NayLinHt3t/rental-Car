@@ -1,5 +1,6 @@
 package car;
-
+import java.util.List;
+import java.util.ArrayList;
 public class CarService {
     private CarDAO carDAO;
 
@@ -20,20 +21,18 @@ public class CarService {
         throw new RuntimeException("Car with registration number " + regNumber + " not found.");
     }
 
-    public Car[] getElectricCars(){
-        Car[] allCars = getAllCars();
-        Car[] electricCars = new Car[allCars.length];
-        int index = 0;
+    public List<Car> getElectricCars(){
+        List<Car> allCars = carDAO.getAllCars();
+        List<Car> electricCars = new ArrayList<>();
         for (Car car : allCars) {
             if (car != null && car.isElectric()) {
-                electricCars[index] = car;
-                index++;
+                electricCars.add(car);
             }
         }
         return electricCars;
     }
 
-    public Car[] getAllCars() {
+    public List<Car> getAllCars() {
         return carDAO.getAllCars();
     }
 }

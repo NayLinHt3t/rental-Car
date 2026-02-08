@@ -1,6 +1,6 @@
 import java.math.BigDecimal;
 import java.util.Scanner;
-
+import java.util.List;
 import booking.Booking;
 import booking.BookingDAO;
 import booking.BookingService;
@@ -12,16 +12,22 @@ import car.CarDAO;
 import car.CarService;
 
 public class Main{
+/*************  ✨ Windsurf Command ⭐  *************/
+/**
+ * Main entry point for the application.
+ * 
+ * This program creates instances of UserDAO, UserService, CarDAO, CarService, BookingDAO, and BookingService.
+ * 
+ * It then runs a loop that displays a menu and responds to user input.
+ * 
+ * The menu options are:
+ * 1. User Service
+ * 2. Car Service
+ * 3. Booking Service
+ * 4. Exit
+ * 
+/*******  b7cb838c-2537-429e-92e9-084fa0e358d0  *******/
     public static void main(String[] args) {
-
-    //     UserDAO userDAO = new UserDAO();
-    //     UserService userService = new UserService(userDAO);
-    //     userService.createUser(user1);
-    //     userService.createUser(user2);
-    //     User[] users = userService.getAllUsers();
-    //     for (User user : users) {
-    //          System.out.println(user);
-    //      }
     UserDAO userDAO = new UserDAO();
     UserService userService = new UserService(userDAO);
     CarDAO carDAO = new CarDAO();
@@ -95,7 +101,7 @@ public class Main{
         System.out.println("User created: " + newUser);
     }
     public static void viewUsers(UserService userService){
-        User[] users = userService.getAllUsers();
+        List<User> users = userService.getAllUsers();
         for (User user : users) {
             System.out.println(user);
         }
@@ -146,7 +152,7 @@ public class Main{
         System.out.println("Car created: " + newCar);
     }
     public static void viewCars(CarService carService){
-        Car[] cars = carService.getAllCars();
+        List<Car> cars = carService.getAllCars();
         for (Car car : cars) {
             System.out.println(car);
         }
@@ -163,7 +169,7 @@ public class Main{
         System.out.println("Car found: " + car);
     }
     public static void getElectricCars(CarService carService){
-        Car[] cars = carService.getElectricCars();
+        List<Car> cars = carService.getElectricCars();
         for (Car car : cars) {
             System.out.println(car);
         }
@@ -209,7 +215,7 @@ public class Main{
 
     }
     public static void viewBookings(BookingService bookingService){
-        Booking[] bookings = bookingService.getAllBookings();
+        List<Booking> bookings = bookingService.getAllBookings();
         for (Booking booking : bookings) {
             System.out.println(booking);
         }

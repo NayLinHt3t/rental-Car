@@ -1,19 +1,19 @@
 package car;
 
+import java.util.List;
+import java.util.ArrayList;
 public class CarDAO {
-    private static final Car[] cars = new Car[10];
+    private static final List<Car> cars = new ArrayList<>();
     private static int count = 0;
     public  void addCar(Car car) {
         if(count == 10){
             throw new RuntimeException("Maximum number of cars reached.");
         }
-        cars[count] = car;
+        cars.add(car);
         count++;
     }
-    public  Car[] getAllCars() {  
-        Car[] result = new Car[count];
-        System.arraycopy(cars, 0, result, 0, count);
-        return result;
+    public  List<Car> getAllCars() {  
+        return cars;
     }
     public Car getCarByRegNumber(String regNumber) {
         for (Car car : getAllCars()) {
@@ -23,13 +23,11 @@ public class CarDAO {
         }
         throw new RuntimeException("Car with registration number " + regNumber + " not found.");
     }
-    public Car[] getAvailableCars() {
-        Car[] availableCars = new Car[cars.length];
-        int index = 0;
+    public List<Car> getAvailableCars() {
+        List<Car> availableCars = new ArrayList<>();
         for (Car car : cars) {
             if (car != null && car.isAvailable()) {
-                availableCars[index] = car;
-                index++;
+                availableCars.add(car);
             }
         }
         return availableCars;

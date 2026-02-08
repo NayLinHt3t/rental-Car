@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import user.User;
 import car.Car;
 import car.CarDAO;
+import java.util.List;
 public class BookingService {
     private BookingDAO bookingDAO;
     private CarDAO carDAO;
@@ -11,8 +12,8 @@ public class BookingService {
         this.carDAO =carDAO;
     }
     public Booking createBooking(User user, Car car ) {
-        Car [] avaliableCars = carDAO.getAvailableCars();
-        if(avaliableCars.length == 0){
+        List<Car> avaliableCars = carDAO.getAvailableCars();
+        if(avaliableCars.size() == 0){
             throw new RuntimeException("No cars available for booking.");
         }
         for( Car avaliableCar : avaliableCars){
@@ -25,7 +26,7 @@ public class BookingService {
         throw new RuntimeException("Car with registration number " + car.getRegNumber() + " not found.");
     }
 
-    public Booking[] getAllBookings() {
+    public List<Booking> getAllBookings() {
         return bookingDAO.getAllBookings();
     }
     public Booking getBookingById(String id) {
@@ -45,7 +46,7 @@ public class BookingService {
         }
         throw new RuntimeException("Booking with User ID " + userId + " not found.");
     }
-    public Car[] getAllCars() {
+    public List<Car> getAllCars() {
         return carDAO.getAllCars();
     }
 }

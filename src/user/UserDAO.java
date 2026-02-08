@@ -1,20 +1,20 @@
 package user;
+import java.util.List;
+import java.util.ArrayList;
 public class UserDAO {
-    private static User[] users = new User[10];
+    private static List<User> users = new ArrayList<>();
     private static int count = 0;
 
     public  User addUser(User user) {
         if(count == 10){
             throw new RuntimeException("Maximum number of users reached.");
         }
-        users[count] = user;
+        users.add(user);
         count++;
         return user;
     }
-    public  User[] getAllUsers() {  
-        User[] result = new User[count];
-        System.arraycopy(users, 0, result, 0, count);
-        return result;
+    public  List<User> getAllUsers() {  
+        return users;
     }
     public User getUserById(String id) {
         for (User user : users) {
